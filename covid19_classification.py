@@ -41,6 +41,7 @@ def accuracy(xb,yb):
 
 
 def fit():
+    print("Optimazer: ",optim)
     for epoch in range(epochs):
         for i,(xb, yb) in enumerate(train_dl):
             xb = xb.float()
@@ -59,6 +60,8 @@ def fit():
             epoch+1, 
             (valid_loss / len(valid_dl)).item()  ## mean() of sum loss
         ))
+
+
 
 fit()
 print("final accuracy: ", accuracy(x_valid,y_valid))
