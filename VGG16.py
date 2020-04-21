@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 
 class conv_layer_3(nn.Module):          ## 3 conv layer
-    def.__init__(self,channel_in, channel_out):
+    def __init__(self,channel_in, channel_out):
         super().__init__()
         self.conv1 = nn.Conv2d(channel_in,channel_out,kernel_size=3,stride=1,padding=1)
         self.conv2 = nn.Conv2d(channel_out,channel_out,kernel_size=3,stride=1,padding=1)
@@ -17,7 +17,7 @@ class conv_layer_3(nn.Module):          ## 3 conv layer
         return h
 
 class conv_layer_2(nn.Module):         ## 2 conv layer
-    def.__init__(self,channel_in, channel_out):
+    def __init__(self,channel_in, channel_out):
         super().__init__()
         self.conv1 = nn.Conv2d(channel_in,channel_out,kernel_size=3,stride=1,padding=1)
         self.conv2 = nn.Conv2d(channel_out,channel_out,kernel_size=3,stride=1,padding=1)
@@ -28,7 +28,7 @@ class conv_layer_2(nn.Module):         ## 2 conv layer
         return h
 
 class conv_layer_1(nn.Module):         ## 1 conv layer
-    def.__init__(self,channel_in, channel_out):
+    def __init__(self,channel_in, channel_out):
         super().__init__()
         self.conv1 = nn.Conv2d(channel_in,channel_out,kernel_size=3,stride=1,padding=1)
     
@@ -41,7 +41,7 @@ class Flatten(nn.Module):
         return input.view(input.size(0), -1)
 
 class VGG_16(nn.Module): 
-    def.__init__(self):
+    def __init__(self):
         super().__init__()
         self.batnom0 = nn.BatchNorm2d(3)               ## 224 * 224 * 3
         
@@ -67,7 +67,7 @@ class VGG_16(nn.Module):
         self.dense3 = nn.Linear(4096,2)                ## 4096 -> 2 (class)
         
     def forward(self,xb):
-        xb = xb.view(-1,3,224,224)
+        xb = xb.view(xb.shape[0],xb.shape[3],xb.shape[1],xb.shape[2])
         xb = self.batnom0(xb)
         
         xb = self.conv_layer1(xb)
@@ -94,4 +94,4 @@ class VGG_16(nn.Module):
         return xb
 
 def get_model():
-    return VGG_16
+    return VGG_16()
