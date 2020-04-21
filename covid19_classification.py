@@ -14,7 +14,7 @@ print("device: ",device)
 x_train,y_train,x_valid,y_valid = data_preprocess.load_data()
 VGG_16_model = VGG16.get_model().to(device)
 
-lr = 0.0001
+lr = 0.00001
 epochs = 10
 loss_function = F.cross_entropy
 bs = 16
@@ -56,7 +56,7 @@ def fit():
             with torch.no_grad():
                 valid_loss = sum(loss_function(VGG_16_model(xb.float().to(device)), yb.long().to(device)) for xb, yb in valid_dl)   ## sum loss of valid batch
         print("epoch: {} - val_loss: {:.2f}".format(
-            epoch, 
+            epoch+1, 
             (valid_loss / len(valid_dl)).item()  ## mean() of sum loss
         ))
 
