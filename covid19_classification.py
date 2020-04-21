@@ -18,7 +18,8 @@ lr = 0.0001
 epochs = 10
 loss_function = F.cross_entropy
 bs = 16
-optim = torch.optim.SGD(VGG_16_model.parameters(),lr = lr)
+# optim = torch.optim.SGD(VGG_16_model.parameters(),lr = lr)
+optim = torch.optim.Adam(model.parameters(),lr = lr)
 
 train_ds = list(zip(x_train,y_train))
 train_dl = DataLoader(train_ds,batch_size=16)
