@@ -58,7 +58,7 @@ class VGG_16(nn.Module):
         self.pool4 = nn.MaxPool2d(2)
         
         self.conv_layer5 = conv_layer_3(512,512)       ## 14 * 14 * 512
-        self.pool5 = nn.MaxPool2d(2)
+        self.pool5 = nn.MaxPool2d(8)
 
         self.flatten = Flatten()                       ## flatten 7 * 7 * 512 => 25088 * 1 
 
@@ -89,7 +89,7 @@ class VGG_16(nn.Module):
         
         xb = F.relu(self.dense1(xb))
         xb = F.relu(self.dense2(xb))
-        xb = F.softmax(self.dense3(xb))
+        xb = F.softmax(self.dense3(xb),dim=0)
 
         return xb
 

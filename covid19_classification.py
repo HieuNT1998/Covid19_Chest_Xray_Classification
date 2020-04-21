@@ -64,4 +64,6 @@ def fit():
 
 
 fit()
-print("final accuracy: ", accuracy(x_valid,y_valid))
+# print("final accuracy: ", accuracy(x_valid,y_valid))
+
+# print(x_valid[0].shape)
