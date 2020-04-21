@@ -14,8 +14,8 @@ print("device: ",device)
 x_train,y_train,x_valid,y_valid = data_preprocess.load_data()
 VGG_16_model = VGG16.get_model().to(device)
 
-lr = 0.001
-epochs = 2
+lr = 0.0001
+epochs = 10
 loss_function = F.cross_entropy
 bs = 16
 optim = torch.optim.SGD(VGG_16_model.parameters(),lr = lr)
