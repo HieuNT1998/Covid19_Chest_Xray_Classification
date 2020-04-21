@@ -54,12 +54,10 @@ def fit():
             optim.zero_grad()
             with torch.no_grad():
                 valid_loss = sum(loss_function(VGG_16_model(xb.float().to(device)), yb.long().to(device)) for xb, yb in valid_dl)   ## sum loss of valid batch
-        print("epoch: {} - val_loss: {:.2f} - accuracy: {:.2f} - val_acc: {:.2f}".format(
+        print("epoch: {} - val_loss: {:.2f}".format(
             epoch, 
-            (valid_loss / len(valid_dl)).item(),   ## mean() of sum loss
-            accuracy(x_train,y_train).item(), 
-            accuracy(x_valid,y_valid).item()
+            (valid_loss / len(valid_dl)).item()  ## mean() of sum loss
         ))
 
 fit()
-print("final accuracy: ", accuracy(x_valid,y_valid))
+# print("final accuracy: ", accuracy(x_valid,y_valid))
