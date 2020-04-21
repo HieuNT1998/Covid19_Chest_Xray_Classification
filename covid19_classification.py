@@ -7,7 +7,8 @@ import VGG16
 from torch.utils.data import TensorDataset
 from torch.utils.data import DataLoader
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
 print("device: ",device)
 
 x_train,y_train,x_valid,y_valid = data_preprocess.load_data()
