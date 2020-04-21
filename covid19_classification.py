@@ -7,7 +7,7 @@ import VGG16
 from torch.utils.data import TensorDataset
 from torch.utils.data import DataLoader
 
-device = torch.device("cuda" if torch.cuda.is_available else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("device: ",device)
 
 x_train,y_train,x_valid,y_valid = data_preprocess.load_data()
@@ -33,22 +33,27 @@ def accuracy(xb,yb):
 
 def fit():
     for epoch in range(epochs):
-        for xb, yb in train_dl:
-            xb = xb.float().to(device)
-            yb = yb.long().to(device)
+        print("epoch: ",epoch)
+        for i,(xb, yb) in enumerate(train_dl):
+            print("inter: ",i)
+            xb = xb.float()
+            xb = xb.to(device)
+            yb = yb.long()
+            yb = yb.to(device)
+            print(xb.type())
             out = VGG_16_model(xb)
             loss = loss_function(out,yb)
             loss.backward()
             optim.step()
             optim.zero_grad()
-            with torch.no_grad():
-                valid_loss = sum(loss_function(VGG_16_model(xb), yb) for xb, yb in valid_dl)   ## sum loss of valid batch
+            # with torch.no_grad():
+            #     valid_loss = sum(loss_function(VGG_16_model(xb), yb) for xb, yb in valid_dl)   ## sum loss of valid batch
         
-        print("epoch: {} - val_loss: {:.2f} - accuracy: {:.2f} - val_acc: {:.2f}".format(
-            epoch, 
-            (valid_loss / len(valid_dl)).item(),   ## mean() of sum loss
-            accuracy(x_train,y_train).item(), 
-            accuracy(x_valid,y_valid).item()
-        ))
+        # print("epoch: {} - val_loss: {:.2f} - accuracy: {:.2f} - val_acc: {:.2f}".format(
+        #     epoch, 
+        #     (valid_loss / len(valid_dl)).item(),   ## mean() of sum loss
+        #     accuracy(x_train,y_train).item(), 
+        #     accuracy(x_valid,y_valid).item()
+        # ))
 
 fit()
