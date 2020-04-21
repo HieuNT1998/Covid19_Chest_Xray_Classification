@@ -14,7 +14,7 @@ print("device: ",device)
 x_train,y_train,x_valid,y_valid = data_preprocess.load_data()
 VGG_16_model = VGG16.get_model().to(device)
 
-lr = 0.0001
+lr = 0.00001
 epochs = 10
 loss_function = F.cross_entropy
 bs = 16
