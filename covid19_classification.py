@@ -7,8 +7,10 @@ import VGG16
 from torch.utils.data import TensorDataset
 from torch.utils.data import DataLoader
 
+device = torch.device("cuda" if torch.cuda.is_available else "cpu")
+
 x_train,y_train,x_valid,y_valid = data_preprocess.load_data()
-VGG_16_model = VGG16.get_model()
+VGG_16_model = VGG16.get_model().to(device)
 
 lr = 0.001
 epochs = 2
@@ -31,10 +33,8 @@ def accuracy(xb,yb):
 def fit():
     for epoch in range(epochs):
         for xb, yb in train_dl:
-            xb = xb.float()
-            yb = yb.long()
-            print(xb.type())
-            print(yb.type())
+            xb = xb.float().to(device)
+            yb = yb.long().to(device)
             out = VGG_16_model(xb)
             loss = loss_function(out,yb)
             loss.backward()

@@ -7,14 +7,10 @@ import VGG16
 from torch.utils.data import TensorDataset
 from torch.utils.data import DataLoader
 
-d = [i for i in range(1000)]
-c = [i for i in range(1000)]
-
-e = list(zip(d,c))
-e = DataLoader(e,batch_size=2)
-
-for d,c in e:
-    print("d: ", d)
-    print("c: ", c)
+print(torch.cuda.is_available())
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device(
+    "cuda") if torch.cuda.is_available() else torch.device("cpu")
+print(device)
 
 
