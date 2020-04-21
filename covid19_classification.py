@@ -8,6 +8,7 @@ from torch.utils.data import TensorDataset
 from torch.utils.data import DataLoader
 
 device = torch.device("cuda" if torch.cuda.is_available else "cpu")
+print("device: ",device)
 
 x_train,y_train,x_valid,y_valid = data_preprocess.load_data()
 VGG_16_model = VGG16.get_model().to(device)
@@ -41,7 +42,7 @@ def fit():
             optim.step()
             optim.zero_grad()
             with torch.no_grad():
-                valid_loss = sum(loss_function(model(xb), yb) for xb, yb in valid_dl)   ## sum loss of valid batch
+                valid_loss = sum(loss_function(VGG_16_model(xb), yb) for xb, yb in valid_dl)   ## sum loss of valid batch
         
         print("epoch: {} - val_loss: {:.2f} - accuracy: {:.2f} - val_acc: {:.2f}".format(
             epoch, 
