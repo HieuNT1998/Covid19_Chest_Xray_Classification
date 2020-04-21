@@ -14,12 +14,12 @@ print("device: ",device)
 x_train,y_train,x_valid,y_valid = data_preprocess.load_data()
 VGG_16_model = VGG16.get_model().to(device)
 
-lr = 0.00001
+lr = 0.1
 epochs = 10
 loss_function = F.cross_entropy
 bs = 16
-# optim = torch.optim.SGD(VGG_16_model.parameters(),lr = lr)
-optim = torch.optim.Adam(VGG_16_model.parameters(),lr = lr)
+optim = torch.optim.SGD(VGG_16_model.parameters(),lr = lr)
+# optim = torch.optim.Adam(VGG_16_model.parameters(),lr = lr)
 
 train_ds = list(zip(x_train,y_train))
 train_dl = DataLoader(train_ds,batch_size=16)
