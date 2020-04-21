@@ -28,9 +28,14 @@ valid_dl = DataLoader(valid_ds,batch_size = 16)
 
 
 def accuracy(xb,yb):
-    out = model(xb)
+    xb = xb.float()
+    xb.to(device)
+    yb = yb.long()
+    yb.to(device)
+    out = VGG_16_model(xb)
     preds = torch.argmax(out,dim=1)
     return (preds==yb).float().mean() 
+
 
 def fit():
     for epoch in range(epochs):
@@ -46,7 +51,7 @@ def fit():
             optim.step()
             optim.zero_grad()
             with torch.no_grad():
-                valid_loss = sum(loss_function(VGG_16_model(xb), yb) for xb, yb in valid_dl)   ## sum loss of valid batch
+                valid_loss = sum(loss_function(VGG_16_model(xb.float().to(device)), yb.long().to(device)) for xb, yb in valid_dl)   ## sum loss of valid batch
         
         print("epoch: {} - val_loss: {:.2f} - accuracy: {:.2f} - val_acc: {:.2f}".format(
             epoch, 
