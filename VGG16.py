@@ -58,7 +58,7 @@ class VGG_16(nn.Module):
         self.pool4 = nn.MaxPool2d(2)
         
         self.conv_layer5 = conv_layer_3(512,512)       ## 14 * 14 * 512
-        self.pool5 = nn.MaxPool2d(8)
+        self.pool5 = nn.MaxPool2d(2)
 
         self.flatten = Flatten()                       ## flatten 7 * 7 * 512 => 25088 * 1 
 
