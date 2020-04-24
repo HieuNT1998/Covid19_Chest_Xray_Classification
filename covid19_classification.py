@@ -48,7 +48,7 @@ def fit():
             xb = xb.to(device)
             yb = yb.long()
             yb = yb.to(device)
-            # print(xb.type())
+            print(xb.type())
             out = VGG_16_model(xb)
             loss = loss_function(out,yb)
             train_loss += loss.item()
