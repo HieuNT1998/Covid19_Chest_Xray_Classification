@@ -15,7 +15,7 @@ x_train,y_train,x_valid,y_valid = data_preprocess.load_data()
 VGG_16_model = VGG16.get_model().to(device)
 
 lr = 0.00001
-epochs = 10
+epochs = 20
 loss_function = F.cross_entropy
 bs = 16
 # optim = torch.optim.SGD(VGG_16_model.parameters(),lr = lr)
@@ -48,7 +48,7 @@ def fit():
             xb = xb.to(device)
             yb = yb.long()
             yb = yb.to(device)
-            print(xb.type())
+            # print(xb.type())
             out = VGG_16_model(xb)
             loss = loss_function(out,yb)
             if i == 0 :
