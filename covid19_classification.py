@@ -51,15 +51,16 @@ def fit():
             print(xb.type())
             out = VGG_16_model(xb)
             loss = loss_function(out,yb)
-            train_loss += loss.item()
+            # train_loss += loss.item()
             loss.backward()
             optim.step()
             optim.zero_grad()
             with torch.no_grad():
                 valid_loss = sum(loss_function(VGG_16_model(xb.float().to(device)), yb.long().to(device)) for xb, yb in valid_dl)   ## sum loss of valid batch
-        print("epoch: {}- train_loss:{:.2f} - val_loss: {:.2f}".format(
+        # print("epoch: {}- train_loss:{:.2f} - val_loss: {:.2f}".format(
+        print("epoch: {} - val_loss: {:.2f}".format(
             epoch+1,
-            (train_loss) / len(train_dl),
+            # (train_loss) / len(train_dl),
             (valid_loss / len(valid_dl)).item()  ## mean() of sum loss
         ))
 
