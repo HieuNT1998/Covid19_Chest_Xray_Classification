@@ -9,8 +9,8 @@ covid_path = './data/covid19'
 normal_path = './data/normal'
 
 
-witdh = 800
-height = 800
+witdh = 224
+height = 224
 
 
 def read_img(image_path):
