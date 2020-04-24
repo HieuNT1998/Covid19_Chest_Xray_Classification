@@ -51,7 +51,10 @@ def fit():
             print(xb.type())
             out = VGG_16_model(xb)
             loss = loss_function(out,yb)
-            train_loss += loss.item()
+            if i == 0 :
+                train_loss = loss
+            else:
+                train_loss += loss.item()
             loss.backward()
             optim.step()
             optim.zero_grad()
